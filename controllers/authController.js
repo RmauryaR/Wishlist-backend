@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // POST /signup
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -29,7 +29,7 @@ exports.signup = async (req, res) => {
 };
 
 // POST /login
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -50,8 +50,7 @@ exports.login = async (req, res) => {
   }
 };
 
-//show user name on dashboard
-
+// GET /me
 const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -63,6 +62,7 @@ const getMe = async (req, res) => {
   }
 };
 
+// ✅ Export all 3 functions
 module.exports = {
   signup,
   login,
