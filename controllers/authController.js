@@ -49,3 +49,22 @@ exports.login = async (req, res) => {
     res.status(500).json({ msg: "Server error", error: err.message });
   }
 };
+
+//show user name on dashboard
+
+const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return res.status(404).json({ msg: "User not found" });
+    res.json(user);
+  } catch (err) {
+    console.error("Error fetching user:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+module.exports = {
+  signup,
+  login,
+  getMe,
+};
